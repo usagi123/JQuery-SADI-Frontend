@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Quiz Test</title>
+        <title>Questions List</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <a href="index.hjs">Home</a> | <a href="questionService.hjs">Questions</a> | <a href="answerService.hjs">Answers</a>
-        <h1>Quiz Test</h1>
+        <h1>Questions List</h1>
         
-        <h4>Add questions</h4>
+        <h4>Add Question</h4>
         <p>Question ID: <input type="text" id="qid"></p>
-        <p>Question Content: <input type="text" id="question"></p>
-        <button id="add_question">Add question</button>
+        <p>Question Content: <input type="text" id="content"></p>
+        <button id="add-question">Add question</button>
 
-        <h2>Questions List</h2>
+        <h2>Question List</h2>
         <ul id="questions"></ul>
-
         <template id="question-template">
             <li data-id="{{qid}}">
                 <p>
-                    <strong>Question_ID:</strong> 
+                    <strong>Question ID:</strong>
                     <span class="noedit qid">{{qid}}</span>
-                    <input class="edit qid"/>
+                    <input class="edit qid">
                 </p>
                 <p>
-                    <strong>Question_Content:</strong> 
-                    <span class="noedit question">{{question}}</span>
-                    <input class="edit question"/>
+                    <strong>Question Content:</strong>
+                    <span class="noedit content">{{content}}</span>
+                    <input class="edit content">
                 </p>
-                <button data-id='{{qid}}' class='remove'>Delete</button>
+                <button data-id={{qid}} class='remove'>Delete</button>
                 <button class="editQuestion noedit">Edit</button>
                 <button class="saveEdit edit">Save</button>
                 <button class="cancelEdit edit">Cancel</button>
