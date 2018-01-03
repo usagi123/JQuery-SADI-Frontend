@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quiz Test</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <a href="index.hjs">Home</a> | <a href="questionService.hjs">Questions</a> | <a href="answerService.hjs">Answers</a>
+        <h1>Quiz Test</h1>
+        
+        <h4>Add questions</h4>
+        <p>Question ID: <input type="text" id="qid"></p>
+        <p>Question Content: <input type="text" id="question"></p>
+        <button id="add_question">Add question</button>
+
+        <h2>Questions List</h2>
+        <ul id="questions"></ul>
+
+        <template id="question-template">
+            <li data-id="{{qid}}">
+                <p>
+                    <strong>Question_ID:</strong> 
+                    <span class="noedit qid">{{qid}}</span>
+                    <input class="edit qid"/>
+                </p>
+                <p>
+                    <strong>Question_Content:</strong> 
+                    <span class="noedit question">{{question}}</span>
+                    <input class="edit question"/>
+                </p>
+                <button data-id='{{qid}}' class='remove'>Delete</button>
+                <button class="editQuestion noedit">Edit</button>
+                <button class="saveEdit edit">Save</button>
+                <button class="cancelEdit edit">Cancel</button>
+            </li>
+        </template>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    </body>
+</html>

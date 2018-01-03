@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quiz Test</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <a href="index.hjs">Home</a> | <a href="questionService.hjs">Questions</a> | <a href="answerService.hjs">Answers</a>
+        <h1>Quiz Test</h1>
+        <h2>Questions List</h2>
+        <ul id="questions"></ul>
+
+        <template id="question-template">
+            <li data-id="{{qid}}">
+                <p>
+                    <strong>Question_ID:</strong> 
+                    <span class="noedit qid">{{qid}}</span>
+                    <input class="edit qid"/>
+                </p>
+                <p>
+                    <strong>Question_Content:</strong> 
+                    <span class="noedit question">{{question}}</span>
+                    <input class="edit question"/>
+                </p>
+                <button data-id='{{qid}}' class='remove'>Delete</button>
+                <button class="editQuestion noedit">Edit</button>
+                <button class="saveEdit edit">Save</button>
+                <button class="cancelEdit edit">Cancel</button>
+            </li>
+        </template>
+
+        <h2>Answers List</h2>
+        <ul id="answers"></ul>
+
+        <template id="answer-template">
+            <li data-id="{{aid}}">
+                <p>
+                    <strong>Answer ID:</strong> 
+                    <span class="noedit aid">{{aid}}</span>
+                    <input class="edit aid"/>
+                </p>
+                <p>
+                    <strong>Answer Content:</strong> 
+                    <span class="noedit answer">{{answer}}</span>
+                    <input class="edit answer"/>
+                </p>
+                <p>
+                    <strong>Correct Check:</strong>
+                    <span class="noedit correctcheck">{{correctcheck}}</span>
+                    <input class="edit correctcheck"/>
+                </p>
+                <p>
+                    <strong>Question ID:</strong>
+                    <span class="noedit qid">{{qid}}</span>
+                    <input class="edit qid"/>
+                </p>
+                <button data-id='{{aid}}' class='remove'>Delete</button>
+                <button class="editAnswer noedit">Edit</button>
+                <button class="saveEdit edit">Save</button>
+                <button class="cancelEdit edit">Cancel</button>
+            </li>
+        </template>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    </body>
+</html>

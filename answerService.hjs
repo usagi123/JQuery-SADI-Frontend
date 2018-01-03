@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quiz Test</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <a href="index.hjs">Home</a> | <a href="questionService.hjs">Questions</a> | <a href="answerService.hjs">Answers</a>
+        <h1>Quiz Test</h1>
+        
+        <h4>Add answers</h4>
+        <p>Answer ID: <input type="text" id="aid"></p>
+        <p>Answer Content: <input type="text" id="answer"></p>
+        <p>
+            Correct Check: 
+            <input type="hidden" name="check" value="false" id="correctcheck"> 
+            <input type="checkbox" name="check" value="true" id="correctcheck">
+        </p>
+        <p>Question ID: <input type="text" id="qid"></p>
+        <button id="add_answer">Add answer</button>
+
+        <h2>Answers List</h2>
+        <ul id="answers"></ul>
+
+        <template id="answer-template">
+            <li data-id="{{aid}}">
+                <p>
+                    <strong>Answer ID:</strong> 
+                    <span class="noedit aid">{{aid}}</span>
+                    <input class="edit aid"/>
+                </p>
+                <p>
+                    <strong>Answer Content:</strong> 
+                    <span class="noedit answer">{{answer}}</span>
+                    <input class="edit answer"/>
+                </p>
+                <p>
+                    <strong>Correct Check:</strong>
+                    <span class="noedit correctcheck">{{correctcheck}}</span>
+                    <input class="edit correctcheck"/>
+                </p>
+                <p>
+                    <strong>Question ID:</strong>
+                    <span class="noedit qid">{{qid}}</span>
+                    <input class="edit qid"/>
+                </p>
+                <button data-id='{{aid}}' class='remove'>Delete</button>
+                <button class="editAnswer noedit">Edit</button>
+                <button class="saveEdit edit">Save</button>
+                <button class="cancelEdit edit">Cancel</button>
+            </li>
+        </template>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    </body>
+</html>
