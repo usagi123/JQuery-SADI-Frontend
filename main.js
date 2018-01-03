@@ -1,41 +1,41 @@
 var access_token = ''
 
 //This is an ajax request. The purpsose is to get an access_token
-$.ajax({
-    url: 'http://localhost:8080/oauth/token?grant_type=password&username=admin&password=admin',
-    method: 'post',
-    beforeSend: function(xhr){
-        xhr.setRequestHeader('Authorization','Basic Y2xpZW50LWlkOnNlY3JldA==')
-},
-    success: function(data){
-        setCookie("access_token", data.access_token, 1)
-        console.log(getCookie("access_token"))
-        $('body').append("<div>Login successfully. <a href='index.html'>Go to main page</a></div>")
-}
-})
+// $.ajax({
+//     url: 'http://localhost:8080/oauth/token?grant_type=password&username=admin&password=admin',
+//     method: 'post',
+//     beforeSend: function(xhr){
+//         xhr.setRequestHeader('Authorization','Basic Y2xpZW50LWlkOnNlY3JldA==')
+// },
+//     success: function(data){
+//         setCookie("access_token", data.access_token, 1)
+//         console.log(getCookie("access_token"))
+//         $('body').append("<div>Login successfully. <a href='index.html'>Go to main page</a></div>")
+// }
+// })
 
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
+// function setCookie(cname, cvalue, exdays) {
+//     var d = new Date();
+//     d.setTime(d.getTime() + (exdays*24*60*60*1000));
+//     var expires = "expires="+ d.toUTCString();
+//     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+// }
 
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "Empty";
-}
+// function getCookie(cname) {
+//     var name = cname + "=";
+//     var decodedCookie = decodeURIComponent(document.cookie);
+//     var ca = decodedCookie.split(';');
+//     for(var i = 0; i <ca.length; i++) {
+//         var c = ca[i];
+//         while (c.charAt(0) == ' ') {
+//             c = c.substring(1);
+//         }
+//         if (c.indexOf(name) == 0) {
+//             return c.substring(name.length, c.length);
+//         }
+//     }
+//     return "Empty";
+// }
 
 //Question CRUD
 function QuestionService(){
