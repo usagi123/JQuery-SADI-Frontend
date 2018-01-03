@@ -52,7 +52,7 @@ function QuestionService(){
     //Read
     $.ajax({
         type: 'GET',
-        url: 'localhost:8080/questions/getAll?access_token='+getCookie('access_token'),
+        url: 'localhost:8080/questions/getAll',
         success: function(question){
             console.log('success', question)
             $.each(question, function(qid, question){
@@ -72,7 +72,7 @@ function QuestionService(){
         };
         $.ajax({
             type: 'POST',
-            url: 'localhost:8080/questions/create?access_token='+getCookie('access_token'),
+            url: 'localhost:8080/questions/create',
             data: addQuestion,
             success: function(newQuestion){
                 addNewQuestion(newQuestion);
@@ -89,7 +89,7 @@ function QuestionService(){
         var $li = $(this).closest('li');
         $.ajax({
             type: 'DELETE',
-            url: 'localhost:8080/questions/deleteByqid' + $(this).attr('data-id') + '?access_token='+getCookie('access_token'),
+            url: 'localhost:8080/questions/deleteByqid',
             success: function(){
                 $li.fadeOut(300, function(){
                     $(this).remove();
@@ -123,7 +123,7 @@ function QuestionService(){
         };
         $.ajax({
             type: 'PUT',
-            url: 'localhost:8080/questions/updateByqid?access_token='+getCookie('access_token'),
+            url: 'localhost:8080/questions/updateByqid',
             data: updateQuestion,
             success: function(newQuestion){
                 $li.find('span.qid').html(question.qid);
@@ -137,114 +137,114 @@ function QuestionService(){
     })
 };
 
-//Answer CRUD
-function AnswerService(){
-    var $answers = $('#answers');
-    var $aid = $('#aid');
-    var $answer = $('#answer');
-    var $correctcheck = $('#correctcheck');
-    var $qid = $('qid');
+// //Answer CRUD
+// function AnswerService(){
+//     var $answers = $('#answers');
+//     var $aid = $('#aid');
+//     var $answer = $('#answer');
+//     var $correctcheck = $('#correctcheck');
+//     var $qid = $('qid');
 
-    var answerTemplate = $('answer-template').html();
+//     var answerTemplate = $('answer-template').html();
 
-    function addNewAnswer(answer){
-        $answers.append(Mustache.render(answerTemplate), answer);            
-    }
+//     function addNewAnswer(answer){
+//         $answers.append(Mustache.render(answerTemplate), answer);            
+//     }
 
-    //Read
-    $.ajax({
-        type: 'GET',
-        url: 'localhost:8080/answers/getAll?access_token='+getCookie('access_token'),
-        success: function(answer){
-            console.log('success', answer)
-            $.each(answer, function(aid, answer){
-                addNewAnswer(answer);
-            });
-        },
-        error: function(){
-            alert('Error loading answers');
-        }
-    });
+//     //Read
+//     $.ajax({
+//         type: 'GET',
+//         url: 'localhost:8080/answers/getAll?access_token='+getCookie('access_token'),
+//         success: function(answer){
+//             console.log('success', answer)
+//             $.each(answer, function(aid, answer){
+//                 addNewAnswer(answer);
+//             });
+//         },
+//         error: function(){
+//             alert('Error loading answers');
+//         }
+//     });
 
-    //Create
-    $('add_answer').on('click', function(){
-        var addAnswer = {
-            aid: $answer.val(),
-            answer: $answer.val(),
-            correctcheck: $answer.val(),
-            qid: $qid.val(),
-        };
-        $.ajax({
-            type: 'POST',
-            url: 'localhost:8080/answers/create?access_token='+getCookie('access_token'),
-            data: addAnswer,
-            success: function(newAnswer){
-                addNewQuestion(newAnswer);
-            },
-            error: function(){
-                alert('Error saving answer');
-            }
-        })
-    });
+//     //Create
+//     $('add_answer').on('click', function(){
+//         var addAnswer = {
+//             aid: $answer.val(),
+//             answer: $answer.val(),
+//             correctcheck: $answer.val(),
+//             qid: $qid.val(),
+//         };
+//         $.ajax({
+//             type: 'POST',
+//             url: 'localhost:8080/answers/create?access_token='+getCookie('access_token'),
+//             data: addAnswer,
+//             success: function(newAnswer){
+//                 addNewQuestion(newAnswer);
+//             },
+//             error: function(){
+//                 alert('Error saving answer');
+//             }
+//         })
+//     });
 
-    //Delete
-    $answers.delegate('.remove','click', function(){
+//     //Delete
+//     $answers.delegate('.remove','click', function(){
 
-        var $li = $(this).closest('li');
-        $.ajax({
-            type: 'DELETE',
-            url: 'localhost:8080/answers/deleteByaid' + $(this).attr('data-id') + '?access_token='+getCookie('access_token'),
-            success: function(){
-                $li.fadeOut(300, function(){
-                    $(this).remove();
-                });
-            }
-        });
-    });
+//         var $li = $(this).closest('li');
+//         $.ajax({
+//             type: 'DELETE',
+//             url: 'localhost:8080/answers/deleteByaid' + $(this).attr('data-id') + '?access_token='+getCookie('access_token'),
+//             success: function(){
+//                 $li.fadeOut(300, function(){
+//                     $(this).remove();
+//                 });
+//             }
+//         });
+//     });
 
-    //Update
-    $answers.delegate('.editAnswer', 'click', function(){
-        var $li = $(this).closest('li');
-        $li.find('input.aid').val($li.find('span.aid').html());
-        $li.find('input.answer').val($li.find('span.answer').html());
-        $li.find('input.correctcheck').val($li.find('span.correctcheck').html());
-        $li.find('input.qid').val($li.find('span.qid').html());
-        $li.addClass('edit');
-    });
+//     //Update
+//     $answers.delegate('.editAnswer', 'click', function(){
+//         var $li = $(this).closest('li');
+//         $li.find('input.aid').val($li.find('span.aid').html());
+//         $li.find('input.answer').val($li.find('span.answer').html());
+//         $li.find('input.correctcheck').val($li.find('span.correctcheck').html());
+//         $li.find('input.qid').val($li.find('span.qid').html());
+//         $li.addClass('edit');
+//     });
 
-    $answers.delegate('.cancelEdit', 'click', function(){
-        $(this).closest('li').removeClass('edit');
-    })
+//     $answers.delegate('.cancelEdit', 'click', function(){
+//         $(this).closest('li').removeClass('edit');
+//     })
 
-    $answers.delegate('saveEdit', 'click', function(){
-        var $li = $(this).closest('li');
-        var answer = {
-            aid: $li.find('input.aid').val(),
-            question: $li.find('input.question').val(),
-            correctcheck: $li.find('input.correctcheck').val(),
-            qid: $li.find('input.qid').val(),
-        };
+//     $answers.delegate('saveEdit', 'click', function(){
+//         var $li = $(this).closest('li');
+//         var answer = {
+//             aid: $li.find('input.aid').val(),
+//             question: $li.find('input.question').val(),
+//             correctcheck: $li.find('input.correctcheck').val(),
+//             qid: $li.find('input.qid').val(),
+//         };
 
-        var updateAnswer = {
-            aid: $aid.val(),
-            answer: $answer.val(),
-            correctcheck: $answer.val(),
-            qid: $qid.val(),
-        };
-        $.ajax({
-            type: 'PUT',
-            url: 'localhost:8080/questions/updateByaid?access_token='+getCookie('access_token'),
-            data: updateAnswer,
-            success: function(newAnswer){
-                $li.find('span.aid').html(answer.aid);
-                $li.find('span.answer').html(answer.answer);
-                $li.find('span.correctcheck').html(answer.correctcheck);
-                $li.find('span.qid').html(question.qid);
-                $li.removeClass('edit');
-            },
-            error: function(){
-                alert('Error updating answer');
-            }
-        })
-    })
-};
+//         var updateAnswer = {
+//             aid: $aid.val(),
+//             answer: $answer.val(),
+//             correctcheck: $answer.val(),
+//             qid: $qid.val(),
+//         };
+//         $.ajax({
+//             type: 'PUT',
+//             url: 'localhost:8080/questions/updateByaid?access_token='+getCookie('access_token'),
+//             data: updateAnswer,
+//             success: function(newAnswer){
+//                 $li.find('span.aid').html(answer.aid);
+//                 $li.find('span.answer').html(answer.answer);
+//                 $li.find('span.correctcheck').html(answer.correctcheck);
+//                 $li.find('span.qid').html(question.qid);
+//                 $li.removeClass('edit');
+//             },
+//             error: function(){
+//                 alert('Error updating answer');
+//             }
+//         })
+//     })
+// };
