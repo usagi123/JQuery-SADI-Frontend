@@ -1,11 +1,18 @@
+//Storing username and password input from login page
+$('login').on('click', function(){
+    var username = $('#username').val();
+    var password = $('#password').val();
+})
+
+//JWT authorization
 var access_token = ''
 
 //This is an ajax request. The purpsose is to get an access_token
 $.ajax({
+    method: 'POST',
     url: 'http://localhost:8080/oauth/token?grant_type=password&username=admin&password=admin',
-    method: 'post',
     beforeSend: function(xhr){
-        xhr.setRequestHeader('Authorization','Basic Y2xpZW50LWlkOnNlY3JldA==')
+        xhr.setRequestHeader('Authorization','Basic'+ btoa(username + ':' + password))
 },
     success: function(data){
         setCookie("access_token", data.access_token, 1)
@@ -50,8 +57,8 @@ $(function(){
     }
 
     $.ajax({
-        type: 'GET',
-        url: 'localhost:8080/questions/getAll',
+        method: 'GET',
+        url: 'localhost:8080/questions/getAll' + '?access_token=' + getCookie('access_token'),
         success: function(questions) {
             console.log("Getted all questions", questions); //debug
             $.each(questions, function(i, question){
@@ -71,9 +78,12 @@ $(function(){
         }
 
         $.ajax({
-            type: 'POST',
-            url: 'localhost:8080/questions/create',
-            data: question,
+            method: 'POST',
+            url: 'localhost:8080/questions/create' + '?access_token=' + getCookie('access_token'),
+            contentType: "application/json; charset=utf-8",
+            accepts: "application/json",
+            dataType: "json",
+            data: JSON.stringify(question),
             success: function(newQuestion) {
                 console.log("Question added!", newQuestion); //debug
                 addQuestion(newQuestion);
@@ -89,13 +99,13 @@ $(function(){
         var $li = $(this).closest('li');
 
         $.ajax({
-            type: 'DELETE',
+            method: 'DELETE',
             // url: 'localhost:8080/questions/deleteByqid' + $(this).attr('data-id'),
             // url: 'localhost:8080/questions/deleteByqid' + $(this).val(question.qid),
             // url: 'localhost:8080/questions/deleteByqid' + $(this).val('qid'),
             // url: 'localhost:8080/questions/deleteByqid' + $li.find('input.qid').val($li.find('span.qid').html()),
             // url: 'localhost:8080/questions/deleteByqid' + $(this).val($li.find('span.qid').html()),
-            url: 'localhost:8080/questions/deleteByqid' + $li.attr('data-id'),
+            url: 'localhost:8080/questions/deleteByqid' + $li.attr('data-id') + '?access_token=' + getCookie('access_token'),
             success: function(){
                 console.log('Question Deleted Successfully!');
                 $li.fadeOut(300, function(){
@@ -126,9 +136,12 @@ $(function(){
         }
 
         $.ajax({
-            type: 'PUT',
-            url: 'localhost:8080/questions/updateByqid' + $li.attr('data-id'),
-            data: question,
+            method: 'PUT',
+            url: 'localhost:8080/questions/updateByqid' + $li.attr('data-id') + '?access_token=' + getCookie('access_token'),
+            contentType: "application/json; charset=utf-8",
+            accepts: "application/json",
+            dataType: "json",
+            data: JSON.stringify(question),
             success: function(newQuestion) {
                 console.log("Question editted!", newQuestion); //debug
                 $li.find('span.qid').html(question.qid);
