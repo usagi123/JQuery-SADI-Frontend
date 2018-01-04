@@ -17,7 +17,7 @@ $.ajax({
     success: function(data){
         setCookie("access_token", data.access_token, 1)
         console.log(getCookie("access_token"))
-        $('body').append("<div>Login successfully. <a href='index.html'>Go to main page</a></div>")
+        $('body').append("<div>Login successfully. <a href='index.html'>Proceed to main page</a></div>")
 }
 })
 
